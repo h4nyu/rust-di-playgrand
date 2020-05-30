@@ -6,8 +6,6 @@ trait B {
     fn b(&self) -> String;
 }
 
-
-
 struct ImplA {}
 
 impl A for ImplA {
@@ -16,13 +14,11 @@ impl A for ImplA {
     }
 }
 
-struct ImplB
-{
+struct ImplB {
     srv_a: Box<dyn A>,
 }
 
-impl B for ImplB
-{
+impl B for ImplB {
     fn b(&self) -> String {
         format!("{}, {}", self.srv_a.a(), "b")
     }
@@ -45,8 +41,10 @@ mod tests {
                 format!("mock-a")
             }
         }
-        let mock_a = MockA{};
-        let b = ImplB { srv_a:  Box::new(mock_a)};
+        let mock_a = MockA {};
+        let b = ImplB {
+            srv_a: Box::new(mock_a),
+        };
         assert_eq!("mock-a, b", &b.b())
     }
 }
